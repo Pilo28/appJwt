@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { environments } from '../../../../environments/environments';
 import { User } from '../interfaces/user.interface';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class AuthService {
 
   private baseUrl = environments.baseUrl;
   private http = inject(HttpClient);
+  private jwtHelper = inject(JwtHelperService);
 
   login(username: string, password: string): Observable<User> {
     return this.http.post<User>(`${this.baseUrl}/authenticate`, { username, password })
@@ -25,7 +27,8 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    const token = localStorage.getItem('token');
+    return !this.jwtHelper.isTokenExpired(token);
   }
 
   getToken(): string | null {

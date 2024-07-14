@@ -9,7 +9,7 @@ const routes: Routes = [
     component: LayoutPageComponent,
     children: [
       { path: 'login',component: LoginComponent},
-      {path: '**', redirectTo: 'login'},
+      { path: '**', redirectTo: 'login'},
     ]
   }
 ];

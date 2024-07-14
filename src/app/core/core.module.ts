@@ -9,6 +9,7 @@ import { authInterceptor } from './auth/interceptors/auth.interceptor';
 import { FormsModule } from '@angular/forms';
 
 
+
 @NgModule({
   declarations: [
     LayoutPageComponent,
@@ -18,12 +19,12 @@ import { FormsModule } from '@angular/forms';
     CommonModule, 
     CoreRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,  
   ],
   providers: [
     provideHttpClient(
       withInterceptors([authInterceptor])
-    )
+    ),
   ]
 })
 export class CoreModule { }
