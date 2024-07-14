@@ -11,7 +11,7 @@ const routes: Routes = [
     component: HomePageComponent,
     children: [
       {path: 'admin', component: AdminPageComponent,  canActivate: [authGuard], data: { role: ['Administrator'] } },
-      {path: 'customers', component: CustomersPageComponent},
+      {path: 'customers', component: CustomersPageComponent, canActivate: [authGuard], data: { role: ['Administrator', 'Developer', 'Tester' ] }},
       {path: '**', redirectTo: ''},
     ]
   }

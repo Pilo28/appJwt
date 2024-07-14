@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
 
 @NgModule({
   declarations: [
@@ -14,6 +16,7 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
     BrowserModule,
     AppRoutingModule,
     CoreModule,
+  
     JwtModule.forRoot({
       config: {
         tokenGetter: () => localStorage.getItem('token'),
@@ -23,7 +26,8 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
     })
   ],
   providers: [
-    JwtHelperService
+    JwtHelperService,
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

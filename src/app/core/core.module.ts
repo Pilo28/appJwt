@@ -19,7 +19,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule, 
     CoreRoutingModule,
     HttpClientModule,
-    FormsModule,  
+    FormsModule
   ],
   providers: [
     provideHttpClient(
