@@ -1,1 +1,15 @@
 <p>customers-page works!</p>
+
+
+<div class="container">
+    <h2>Customer List</h2>
+    <ul *ngIf="customers.length > 0; else noData">
+      <li *ngFor="let customer of customers">
+        {{ customer }}
+      </li>
+    </ul>
+    <ng-template #noData>
+      <p>No customers found.</p>
+    </ng-template>
+</div>
+  
