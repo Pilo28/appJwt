@@ -4,6 +4,8 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { environments } from '../../../../environments/environments';
 import { User } from '../interfaces/user.interface';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,9 @@ export class AuthService {
 
   private baseUrl = environments.baseUrl;
   private http = inject(HttpClient);
+  private jwtHelper = inject(JwtHelperService);
+  private route = inject(Router);
+  
 
   login(username: string, password: string): Observable<User> {
     return this.http.post<User>(`${this.baseUrl}/authenticate`, { username, password })
@@ -25,11 +30,25 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    const token = localStorage.getItem('token');
+    return !this.jwtHelper.isTokenExpired(token);
   }
 
   getToken(): string | null {
     return localStorage.getItem('token');
+  }
+
+  public getUserRole(): string | null {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+  
+    const decodedToken = this.jwtHelper.decodeToken(token);
+    return decodedToken.role;
+  }
+
+  public logout(): void {
+    localStorage.removeItem('token');
+    this.route.navigate(['/auth/login']);
   }
 
   private handleError(error: HttpErrorResponse) {

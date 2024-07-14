@@ -1,2 +1,16 @@
-<header>Header</header>
+<header>header</header>
+<div>
+    <h1 *ngIf="role">Hola, {{ role }}</h1>
+    <button *ngIf="isLoggedIn" (click)="logout()">Logout</button>
+</div>
+
+<ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/home/customers']" routerLinkActive="active">Customers</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/home/admin']" routerLinkActive="active">Admin</a>
+    </li>  
+</ul>
+  
 <router-outlet></router-outlet>
