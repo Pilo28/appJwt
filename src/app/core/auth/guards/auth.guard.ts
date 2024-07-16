@@ -10,7 +10,7 @@ export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: R
   const jwtHelper = new JwtHelperService();
   const notificationService = inject(NotificationService);
 
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   
   if (authService.isLoggedIn() && token) {
     try {

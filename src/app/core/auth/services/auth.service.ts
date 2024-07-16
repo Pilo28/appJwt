@@ -22,7 +22,7 @@ export class AuthService {
     return this.http.post<User>(`${this.baseUrl}/authenticate`, { username, password })
       .pipe(
         map(token => {
-          localStorage.setItem('token', token.toString());
+          sessionStorage.setItem('token', token.toString());
           return token;
         }),
         catchError(this.handleError)
@@ -30,16 +30,16 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
 
   public getUserRole(): string | null {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (!token) return null;
   
     const decodedToken = this.jwtHelper.decodeToken(token);
@@ -47,7 +47,7 @@ export class AuthService {
   }
 
   public logout(): void {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     this.route.navigate(['/auth/login']);
   }
 

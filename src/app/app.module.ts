@@ -19,7 +19,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => localStorage.getItem('token'),
+        tokenGetter: () => sessionStorage.getItem('token'),
         allowedDomains: ['localhost:49220'],
         disallowedRoutes: ['localhost:49220/api/login/authenticate']
       }
@@ -27,7 +27,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   ],
   providers: [
     JwtHelperService,
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent]
 })

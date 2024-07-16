@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environments } from '../../../../environments/environments';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
+import { User } from '../../interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ private urlCustomers = environments.urlCustomers
 
 private http = inject(HttpClient);
 
-getCustomers(): Observable<string[]> {
-  return this.http.get<string[]>(this.urlCustomers);
-}
+getCustomers(): Observable<User[]> {
+  return this.http.get<User[]>(this.urlCustomers)
+  } 
 }
