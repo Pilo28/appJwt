@@ -1,1 +1,13 @@
 <p>admin-page works!</p>
+
+<div class="container">
+    <h2>Admin List</h2>
+    <ul *ngIf="admins.length > 0; else noData">
+      <li *ngFor="let admin of admins">
+        <a (click)="goDetail(admin)">{{admin}}</a>
+      </li>
+    </ul>                                        
+    <ng-template #noData>
+      <p>No admins found.</p>
+    </ng-template>
+</div>

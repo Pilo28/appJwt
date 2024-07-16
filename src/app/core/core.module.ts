@@ -4,9 +4,10 @@ import { CommonModule } from '@angular/common';
 import { CoreRoutingModule } from './core-routing.module';
 import { LayoutPageComponent } from './auth/pages/layout-page/layout-page.component';
 import { LoginComponent } from './auth/pages/login/login.component';
-import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './auth/interceptors/auth.interceptor';
 import { FormsModule } from '@angular/forms';
+import { ErrorInterceptor } from './auth/interceptors/error.interceptor';
 
 
 
@@ -25,6 +26,7 @@ import { FormsModule } from '@angular/forms';
     provideHttpClient(
       withInterceptors([authInterceptor])
     ),
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ]
 })
 export class CoreModule { }
